@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=prox
+Comment=prox P2P Cryptocurrency
+Comment[fr]=prox, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=prox, eşten eşe kriptografik sanal para birimi
+Exec=prox-qt %u
+Terminal=false
+Type=Application
+Icon=prox128
+MimeType=x-scheme-handler/prox;
+Categories=Office;Finance;
