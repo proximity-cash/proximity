@@ -2123,8 +2123,9 @@ int64_t GetBlockValue(int nHeight)
     switch (nHeight){
     case                 0: nSubsidy = 0 * COIN; break;
     case      1 ...  2: nSubsidy = 150000      * COIN; break;
-    case      3 ...  14999: nSubsidy = 1      * COIN; break;
-    case  15000 ...  30000: nSubsidy = 5      * COIN; break;
+    case      3 ...  500: nSubsidy = 1      * COIN; break; //instamine protection
+    case      501 ...  5000: nSubsidy = 3      * COIN; break;
+    case  5001 ...  30000: nSubsidy = 5      * COIN; break;
     case  30001 ...  45000: nSubsidy = 10     * COIN; break;
     case  45001 ...  60000: nSubsidy = 15     * COIN; break;
     case  60001 ...  75000: nSubsidy = 20     * COIN; break;
@@ -4536,7 +4537,7 @@ bool static LoadBlockIndexDB()
         //get the last block that was properly recorded to the block info file
         CBlockIndex* pindexLastMeta = vSortedByHeight[vinfoBlockFile[nLastBlockFile].nHeightLast + 1].second;
 
-        //fix Assertion `hashPrevBlock == view.GetBestBlock()' failed. By adjusting height to the last recorded by coinsview
+        //fix Assertion hashPrevBlock == view.GetBestBlock()' failed. By adjusting height to the last recorded by coinsview
         CBlockIndex* pindexCoinsView = mapBlockIndex[pcoinsTip->GetBestBlock()];
         for(unsigned int i = vinfoBlockFile[nLastBlockFile].nHeightLast + 1; i < vSortedByHeight.size(); i++)
         {

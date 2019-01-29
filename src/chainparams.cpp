@@ -53,10 +53,10 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 //    timestamp before)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of(0, uint256("0x000006dee84b8471ffaf82547193a7b5fb02fd1505c4f174b0d3c43d60aa4dca"));
+    boost::assign::map_list_of(0, uint256("0x000002cdafe43eb951bfc43049d9904425608ef424bc212592972a3abc700bba"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1548246359,  // * UNIX timestamp of last checkpoint block
+    1548774307,  // * UNIX timestamp of last checkpoint block
     0,           // * total number of transactions between genesis and last checkpoint
                  //   (the tx=... number in the SetBestChain debug.log lines)
     5000         // * estimated number of transactions per day after checkpoint
@@ -118,11 +118,11 @@ public:
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 40000000 * COIN;
 		/** Height or Time Based Activations **/
-        nLastPOWBlock = 600;
+        nLastPOWBlock = 2000;
         nModifierUpdateBlock = 9999999;
         nZerocoinStartHeight = 601;
         nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1548526323; //but afer 601 blocks!
+        nZerocoinStartTime = 1548947139; //but afer 601 blocks!
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
@@ -138,7 +138,7 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "01/23/2019 Proximity Genesis Block";
+        const char* pszTimestamp = "01/29/2019 Proximity Genesis Block";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -149,16 +149,43 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1548246359;
+        genesis.nTime = 1548774307;
         genesis.nBits = 0x1e0fffff;
-        genesis.nNonce = 4895904;
+        genesis.nNonce = 5364997;
 
 
         hashGenesisBlock = genesis.GetHash();
 
-        assert(hashGenesisBlock == uint256("0x000006dee84b8471ffaf82547193a7b5fb02fd1505c4f174b0d3c43d60aa4dca"));
-        assert(genesis.hashMerkleRoot == uint256("0x9e50f9e326ab402f91ffd9cff0c68a83f217621e04584ea13fd8f5ecd9b70ee0"));
+/*
+  printf("Searching for genesis block...\n");
+  uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+  uint256 thash;
+while (true)
+{
+thash = genesis.GetHash();
+if (thash <= hashTarget)
+break;
+if ((genesis.nNonce & 0xFFF) == 0)
+{
+printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+}
+++genesis.nNonce;
+if (genesis.nNonce == 0)
+{
+printf("NONCE WRAPPED, incrementing time\n");
+++genesis.nTime;
+}
+}
+printf("genesis.nTime = %u \n", genesis.nTime);
+printf("genesis.nNonce = %u \n", genesis.nNonce);
+printf("genesis.nVersion = %u \n", genesis.nVersion);
+printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+printf("genesis.hashMerkleRoot = %s \n", genesis.hashMerkleRoot.ToString().c_str());*/
 
+
+
+        assert(hashGenesisBlock == uint256("0x000002cdafe43eb951bfc43049d9904425608ef424bc212592972a3abc700bba"));
+        assert(genesis.hashMerkleRoot == uint256("0x39404f92c5c067edcae2d5dd86171860edcf8cd85465e9097a6cbe9f11ede01b"));
 
 
         vSeeds.push_back(CDNSSeedData("176.53.163.194", "176.53.163.194"));
@@ -166,7 +193,7 @@ public:
         vSeeds.push_back(CDNSSeedData("176.53.163.188", "176.53.163.188"));
         vSeeds.push_back(CDNSSeedData("176.53.163.193", "176.53.163.193"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 55);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 55); //P
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 53);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
